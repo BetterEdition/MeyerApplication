@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView mDie1;
     private TextView mDie2;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,13 +29,14 @@ public class MainActivity extends AppCompatActivity {
         mDie1 = (TextView) findViewById(R.id.dice1);
         mDie2 = (TextView) findViewById(R.id.dice2);
         mRollButton = (Button) findViewById(R.id.btnRoll);
-        Random rand = new Random();
-        final int  n = rand.nextInt(6) + 1;
-        final int  m = rand.nextInt(6) + 1;
+
+
         mRollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Random rand = new Random();
+                final int  n = rand.nextInt(6) + 1;
+                final int  m = rand.nextInt(6) + 1;
                 mDie1.setText(String.valueOf(n));
                 mDie2.setText(String.valueOf(m));
             }

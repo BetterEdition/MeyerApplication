@@ -22,13 +22,14 @@
             android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="D"/>
+            android:text="N"/>
+
         <TextView
             android:id="@+id/dice2"
             android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="D"/>
+            android:text="N"/>
 
     </LinearLayout>
     <Button
