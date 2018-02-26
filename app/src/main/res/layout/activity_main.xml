@@ -12,24 +12,29 @@
 
 
     <LinearLayout
-        android:layout_marginTop="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp">
 
         <TextView
             android:id="@+id/dice1"
-            android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="N"/>
-
+            android:layout_margin="10dp"
+            android:text="N" />
+        <TextView
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text=":" />
         <TextView
             android:id="@+id/dice2"
-            android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="N"/>
+            android:layout_margin="10dp"
+            android:text="N" />
 
     </LinearLayout>
     <Button
