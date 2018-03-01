@@ -16,7 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DiceHistActivity"></activity>
+
+        <activity android:name=".DiceActivity"></activity>
+
     </application>
 
 </manifest>
