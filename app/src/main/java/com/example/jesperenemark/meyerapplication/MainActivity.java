@@ -54,9 +54,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, DiceActivity.class);
 
-                Bundle b = new Bundle();
-                b.putStringArray("array", arr);
-
 /** passing string array*/
                // b.putStringArray("array", arr);
                 intent.putExtras(b);
@@ -141,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
         numberChosen = "1";
     }
 
-
     public void populateSpinner() {
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this,   android.R.layout.simple_spinner_item, numbersDrop);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -161,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
         mRollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
                 txtResult.setText("");
                 result = 0;
