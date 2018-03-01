@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MeyerApplication</string>
+    <string name="menu_item_2Die">Clear</string>
+    <string name="menu_item_3Die">Back</string>
 </resources>

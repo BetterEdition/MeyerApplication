@@ -54,11 +54,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, DiceActivity.class);
 
-/** passing string array*/
-               // b.putStringArray("array", arr);
-                intent.putExtras(b);
+                intent.putExtra("array_list", historyList);
 
-/** start Activity2 */
                 startActivity(intent);
 
 
