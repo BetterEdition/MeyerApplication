@@ -1,5 +1,6 @@
 package com.example.jesperenemark.meyerapplication;
 
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,8 +9,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.stream.*;
+import org.w3c.dom.Text;
 
 import java.util.Random;
 
@@ -17,25 +22,23 @@ public class MainActivity extends AppCompatActivity {
 
     private Button mRollButton;
     private Button m2ndActivityButton;
-    private TextView mDie1;
-    private TextView mDie2;
-    private TextView mResult;
+    private TextView txtResult;
     private Spinner mSpinner;
-    final String numbers[] = {"1","2","3","4","5"};
-    public String numberChosen;
+    public int result;
+    public ArrayList<Integer> numbersOfDie;
+    final String numbersDrop[] = {"1","2","3","4","5"};
+    public String numberChosen = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.numbersOfDie = new ArrayList<>();
         mSpinner = (Spinner) findViewById(R.id.spinner);
-        mDie1 = (TextView) findViewById(R.id.txtdice1);
-        mDie2 = (TextView) findViewById(R.id.txtdice2);
-        mResult = (TextView) findViewById(R.id.txtResult);
         mRollButton = (Button) findViewById(R.id.btnRoll);
         m2ndActivityButton = (Button) findViewById(R.id.btnHistory);
-        rollDie();
-        numberOfDie();
+        txtResult = (TextView) findViewById(R.id.txtResult);
+        populateSpinner();
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -45,49 +48,61 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
+                numberChosen = "1";
             }
         });
+        rollDie();
 
     }
 
 
-    public void numberOfDie() {
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this,   android.R.layout.simple_spinner_item, numbers);
+    public void populateSpinner() {
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this,   android.R.layout.simple_spinner_item, numbersDrop);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(spinnerArrayAdapter);
 
     }
+
+
     public void rollDie(){
 
         mRollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (numberChosen) {
-                    case "1":
-                        Log.d("State", ""+numberChosen);
-                        break;
-                    case "2":
-                        Log.d("State", ""+numberChosen);
-                        break;
-                    case "3":
-                        Log.d("State", ""+numberChosen);
-                        break;
-                    case "4":
-                        Log.d("State", ""+numberChosen);
-                        break;
-                    case "5":
-                        Log.d("State", ""+numberChosen);
-                        break;
+
+                txtResult.setText("");
+                result = 0;
+                numbersOfDie.clear();
+                Log.d("dsa", ""+numberChosen);
+                int intNumberChosen = Integer.parseInt(numberChosen);
+                int i;
+                for (i=0; i < intNumberChosen; i++) {
+                    Random rand = new Random();
+                    int randomDice = rand.nextInt(6) + 1;
+                    numbersOfDie.add(randomDice);
+                    Log.d("labels", "numberoflabels:"+i);
+                    String addToText = txtResult.getText().toString();
+
+                    if(i == intNumberChosen-1) {
+                        txtResult.setText(addToText+numbersOfDie.get(i)+"=");
+                    }
+                    else {
+                        txtResult.setText(addToText+numbersOfDie.get(i)+"+");
+                    }
+
                 }
-                Random rand = new Random();
-                final int  n = rand.nextInt(6) + 1;
-                final int  m = rand.nextInt(6) + 1;
-                mDie1.setText(String.valueOf(n));
-                mDie2.setText(String.valueOf(m));
-                mResult.setText(String.valueOf(n+m));
+                for (i=0; i < numbersOfDie.size(); i++) {
+                    result += numbersOfDie.get(i);
+                }
+                txtResult.setText(txtResult.getText().toString() + result);
+
+
+
+
             }
         });
     }
+
 }
 
 

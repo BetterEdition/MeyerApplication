@@ -19,45 +19,22 @@
         android:text="History ->"
         />
     <LinearLayout
+        android:id="@+id/LLDynamic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
 
         <TextView
-            android:textSize="20dp"
-            android:id="@+id/txtdice1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="N" />
-        <TextView
-            android:textSize="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="+" />
-        <TextView
-            android:textSize="20dp"
-            android:id="@+id/txtdice2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="N" />
-        <TextView
-            android:textSize="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="=">
-        </TextView>
-        <TextView
-            android:textSize="20dp"
             android:id="@+id/txtResult"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"/>
-
+            android:textSize="25dp"
+            android:text=""
+            >
+        </TextView>
     </LinearLayout>
 
 
