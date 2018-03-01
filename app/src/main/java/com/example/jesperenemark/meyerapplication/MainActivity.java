@@ -44,10 +44,6 @@ public class MainActivity extends AppCompatActivity {
             dice_2 = savedInstanceState.getInt(KEYINDEX_2, 0);
 
         }
-        else
-
-
-
         numberOfDie();
 
 
@@ -142,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         mRollButton = (Button) findViewById(R.id.btnRoll);
         m2ndActivityButton = (Button) findViewById(R.id.btnHistory);
     }
->
+
     public void numberOfDie() {
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this,   android.R.layout.simple_spinner_item, numbers);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -158,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
         dice_2 = rand.nextInt(6) + 1;
         mDie1.setText(String.valueOf(dice_1));
         mDie2.setText(String.valueOf(dice_2));
+        mResult.setText(String.valueOf(dice_1 + dice_2));
 
     }
 }
