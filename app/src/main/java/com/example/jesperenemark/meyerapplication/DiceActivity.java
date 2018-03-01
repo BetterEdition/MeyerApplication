@@ -17,22 +17,13 @@ public class DiceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dice);
 
 
-        Intent intent = getIntent();
 
-/** get the bundle from intent*/
-        Bundle b = intent.getExtras();
-/** retrieve the string extra passed */
-        String a = b.getString("name");
-
-/** retrieve the stringarray extra passed */
-        String[] arrRecd = b.getStringArray("array");
-
-        history = new ArrayList<>();
-        history.add("Hej");
+        Bundle bundle = getIntent().getExtras();
+        ArrayList<String> array = (ArrayList<String>) bundle.getStringArrayList("array_list");
         diceHistView = (ListView) findViewById(R.id.diceHist);
-        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-      //          android.R.layout.simple_list_item_1, arr);
-   //     diceHistView.setAdapter(adapter);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, array);
+       diceHistView.setAdapter(adapter);
 
 
     }

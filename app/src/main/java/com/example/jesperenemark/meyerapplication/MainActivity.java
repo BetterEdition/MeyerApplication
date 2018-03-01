@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final String KEY_Index  = "index";
 
+
+
+
+
     public SimpleDateFormat timeStamp;
     public String dicesString;
     private Button mRollButton;
@@ -33,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     public int result;
     // ArrayLists
     public ArrayList<Integer> numbersOfDie;
-    public ArrayList<String> historyList;
+    public ArrayList<String> historyList = new ArrayList<>();
     final String numbersDrop[] = {"1","2","3","4","5"};
     public String numberChosen = "1";
 
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate: called");
         setContentView(R.layout.activity_main);
+
         if (savedInstanceState != null){
             dicesString = savedInstanceState.getString(KEY_Index, null);
         }
@@ -54,12 +59,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, DiceActivity.class);
 
-                Bundle b = new Bundle();
-                b.putStringArray("array", arr);
+
 
 /** passing string array*/
                // b.putStringArray("array", arr);
-                intent.putExtras(b);
+                intent.putExtra("array_list", historyList);
 
 /** start Activity2 */
                 startActivity(intent);
@@ -71,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         this.numbersOfDie = new ArrayList<>();
-        this.historyList = new ArrayList<>();
+
         this.timeStamp = new SimpleDateFormat("hh:mm:ss");
         mSpinner = (Spinner) findViewById(R.id.spinner);
         mRollButton = (Button) findViewById(R.id.btnRoll);
