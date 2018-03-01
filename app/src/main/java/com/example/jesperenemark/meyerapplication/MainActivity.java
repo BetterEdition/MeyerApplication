@@ -1,6 +1,5 @@
 package com.example.jesperenemark.meyerapplication;
 
-import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,28 +7,31 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.stream.*;
-import org.w3c.dom.Text;
+import android.widget.TimePicker;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+import java.util.Date;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-
+    // Save instances
     private static final String TAG = "MainActivity";
     private static final String KEY_Index  = "index";
 
+    public SimpleDateFormat timeStamp;
     public String dicesString;
     private Button mRollButton;
     private Button m2ndActivityButton;
     private TextView txtResult;
     private Spinner mSpinner;
     public int result;
+    // ArrayLists
     public ArrayList<Integer> numbersOfDie;
+    public ArrayList<String> historyList;
     final String numbersDrop[] = {"1","2","3","4","5"};
     public String numberChosen = "1";
 
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
             dicesString = savedInstanceState.getString(KEY_Index, null);
         }
         this.numbersOfDie = new ArrayList<>();
+        this.historyList = new ArrayList<>();
+        this.timeStamp = new SimpleDateFormat("hh:mm:ss");
         mSpinner = (Spinner) findViewById(R.id.spinner);
         mRollButton = (Button) findViewById(R.id.btnRoll);
         m2ndActivityButton = (Button) findViewById(R.id.btnHistory);
@@ -149,7 +153,11 @@ public class MainActivity extends AppCompatActivity {
                 for (i=0; i < numbersOfDie.size(); i++) {
                     result += numbersOfDie.get(i);
                 }
+
                 dicesString = (txtResult.getText().toString() + result);
+                String timeAndCalc = timeStamp.format(new Date())+": "+dicesString;
+                Log.d("timeandCalc", timeAndCalc);
+                historyList.add(timeAndCalc);
                 txtResult.setText(dicesString);
 
             }
