@@ -1,5 +1,6 @@
 package com.example.jesperenemark.meyerapplication;
 
+import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,14 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
+    private static final String KEYINDEX_1 = "index1";
+    private static final String KEYINDEX_2 = "index2";
+
+    int  dice_1 = 0;
+    int  dice_2 = 0;
+
+
     private Button mRollButton;
     private Button m2ndActivityButton;
     private TextView mDie1;
@@ -27,15 +36,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG , "onSavedInstanceState");
         setContentView(R.layout.activity_main);
-        mSpinner = (Spinner) findViewById(R.id.spinner);
-        mDie1 = (TextView) findViewById(R.id.txtdice1);
-        mDie2 = (TextView) findViewById(R.id.txtdice2);
-        mResult = (TextView) findViewById(R.id.txtResult);
-        mRollButton = (Button) findViewById(R.id.btnRoll);
-        m2ndActivityButton = (Button) findViewById(R.id.btnHistory);
-        rollDie();
+        referenceViewObjects();
+        if (savedInstanceState !=null){
+            dice_1 = savedInstanceState.getInt(KEYINDEX_1, 0);
+            dice_2 = savedInstanceState.getInt(KEYINDEX_2, 0);
+
+        }
+        else
+
+
+
         numberOfDie();
+
+
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -47,17 +62,6 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parentView) {
             }
         });
-
-    }
-
-
-    public void numberOfDie() {
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this,   android.R.layout.simple_spinner_item, numbers);
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinner.setAdapter(spinnerArrayAdapter);
-
-    }
-    public void rollDie(){
 
         mRollButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,14 +83,82 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("State", ""+numberChosen);
                         break;
                 }
-                Random rand = new Random();
-                final int  n = rand.nextInt(6) + 1;
-                final int  m = rand.nextInt(6) + 1;
-                mDie1.setText(String.valueOf(n));
-                mDie2.setText(String.valueOf(m));
-                mResult.setText(String.valueOf(n+m));
+                diceRandomizer();
+
             }
         });
+
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG, "onStart: called");
+
+;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: called");
+        mDie1.setText(String.valueOf(dice_1));
+        mDie2.setText(String.valueOf(dice_2));
+        mResult.setText(String.valueOf(dice_1 + dice_2));
+
+
+
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: called");
+    }
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "onSavedInstanceState: ");
+        savedInstanceState.putInt(KEYINDEX_2,dice_2);
+        savedInstanceState.putInt(KEYINDEX_1,dice_1);
+    }
+
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG, "onStop: called");
+    }
+    public  void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: called");
+    }
+
+
+    public void referenceViewObjects(){
+        setContentView(R.layout.activity_main);
+        mSpinner = (Spinner) findViewById(R.id.spinner);
+        mDie1 = (TextView) findViewById(R.id.txtdice1);
+        mDie2 = (TextView) findViewById(R.id.txtdice2);
+        mResult = (TextView) findViewById(R.id.txtResult);
+        mRollButton = (Button) findViewById(R.id.btnRoll);
+        m2ndActivityButton = (Button) findViewById(R.id.btnHistory);
+    }
+>
+    public void numberOfDie() {
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this,   android.R.layout.simple_spinner_item, numbers);
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(spinnerArrayAdapter);
+
+    }
+
+
+        public void diceRandomizer(){
+            Log.i(TAG, "diceRandomizer:was called");
+        Random rand = new Random();
+        dice_1 = rand.nextInt(6) + 1;
+        dice_2 = rand.nextInt(6) + 1;
+        mDie1.setText(String.valueOf(dice_1));
+        mDie2.setText(String.valueOf(dice_2));
+
     }
 }
 
