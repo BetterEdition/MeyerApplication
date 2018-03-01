@@ -20,6 +20,10 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
+    private static final String KEY_Index  = "index";
+
+    public String dicesString;
     private Button mRollButton;
     private Button m2ndActivityButton;
     private TextView txtResult;
@@ -33,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d(TAG, "onCreate: called");
+        setContentView(R.layout.activity_main);
+        if (savedInstanceState != null){
+            dicesString = savedInstanceState.getString(KEY_Index, null);
+        }
         this.numbersOfDie = new ArrayList<>();
         mSpinner = (Spinner) findViewById(R.id.spinner);
         mRollButton = (Button) findViewById(R.id.btnRoll);
@@ -46,13 +55,59 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("CheckOnSelect", "onItemSelected: "+numberChosen);
             }
 
+
+
+
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 numberChosen = "1";
             }
         });
+
+
+
+
         rollDie();
 
+    }
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG, "onStart: called");
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: called");
+        txtResult.setText(dicesString);
+
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: called");
+    }
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState)
+    {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG,"onSaveInstanceState");
+        savedInstanceState.putString(KEY_Index,dicesString);
+
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG, "onStop: called");
+    }
+    public  void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: called");
+    }
+
+
+    public void onNothingSelected(AdapterView<?> parentView) {
+        numberChosen = "1";
     }
 
 
@@ -94,10 +149,8 @@ public class MainActivity extends AppCompatActivity {
                 for (i=0; i < numbersOfDie.size(); i++) {
                     result += numbersOfDie.get(i);
                 }
-                txtResult.setText(txtResult.getText().toString() + result);
-
-
-
+                dicesString = (txtResult.getText().toString() + result);
+                txtResult.setText(dicesString);
 
             }
         });
