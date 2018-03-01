@@ -1,6 +1,7 @@
 package com.example.jesperenemark.meyerapplication;
 
-import android.content.DialogInterface;
+
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,39 +10,43 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.stream.*;
-import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+import java.util.Date;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-
+    // Save instances
     private static final String TAG = "MainActivity";
     private static final String KEY_Index  = "index";
 
+    public SimpleDateFormat timeStamp;
     public String dicesString;
     private Button mRollButton;
     private Button mHistButton;
     private TextView txtResult;
     private Spinner mSpinner;
     public int result;
+    // ArrayLists
     public ArrayList<Integer> numbersOfDie;
+    public ArrayList<String> historyList;
     final String numbersDrop[] = {"1","2","3","4","5"};
     public String numberChosen = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate: called");
         setContentView(R.layout.activity_main);
         if (savedInstanceState != null){
             dicesString = savedInstanceState.getString(KEY_Index, null);
         }
+
 
         setButtons ();
         mHistButton.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, DiceActivity.class);
 
                 Bundle b = new Bundle();
-                b.putIntegerArrayList("name", numbersOfDie);
+                b.putStringArray("array", arr);
 
 /** passing string array*/
                // b.putStringArray("array", arr);
@@ -63,6 +68,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+        this.numbersOfDie = new ArrayList<>();
+        this.historyList = new ArrayList<>();
+        this.timeStamp = new SimpleDateFormat("hh:mm:ss");
+        mSpinner = (Spinner) findViewById(R.id.spinner);
+        mRollButton = (Button) findViewById(R.id.btnRoll);
+        mHistButton = (Button) findViewById(R.id.btnHistory);
+        txtResult = (TextView) findViewById(R.id.txtResult);
 
         populateSpinner();
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -172,11 +186,12 @@ public class MainActivity extends AppCompatActivity {
                 for (i=0; i < numbersOfDie.size(); i++) {
                     result += numbersOfDie.get(i);
                 }
+
                 dicesString = (txtResult.getText().toString() + result);
+                String timeAndCalc = timeStamp.format(new Date())+": "+dicesString;
+                Log.d("timeandCalc", timeAndCalc);
+                historyList.add(timeAndCalc);
                 txtResult.setText(dicesString);
-
-
-
 
             }
         });
