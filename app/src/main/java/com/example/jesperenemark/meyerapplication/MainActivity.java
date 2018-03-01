@@ -1,6 +1,7 @@
 package com.example.jesperenemark.meyerapplication;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     public String dicesString;
     private Button mRollButton;
-    private Button m2ndActivityButton;
+    private Button mHistButton;
     private TextView txtResult;
     private Spinner mSpinner;
     public int result;
@@ -42,11 +43,27 @@ public class MainActivity extends AppCompatActivity {
             dicesString = savedInstanceState.getString(KEY_Index, null);
         }
 
-        this.numbersOfDie = new ArrayList<>();
-        mSpinner = (Spinner) findViewById(R.id.spinner);
-        mRollButton = (Button) findViewById(R.id.btnRoll);
-        m2ndActivityButton = (Button) findViewById(R.id.btnHistory);
-        txtResult = (TextView) findViewById(R.id.txtResult);
+        setButtons ();
+        mHistButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, DiceActivity.class);
+
+                Bundle b = new Bundle();
+                b.putIntegerArrayList("name", numbersOfDie);
+
+/** passing string array*/
+               // b.putStringArray("array", arr);
+                intent.putExtras(b);
+
+/** start Activity2 */
+                startActivity(intent);
+
+
+            }
+        });
+
+
         populateSpinner();
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -79,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume: called");
-        txtResult.setText(dicesString)
+        txtResult.setText(dicesString);
 
     }
     @Override
@@ -117,7 +134,13 @@ public class MainActivity extends AppCompatActivity {
         mSpinner.setAdapter(spinnerArrayAdapter);
 
     }
-
+    public void setButtons (){
+        this.numbersOfDie = new ArrayList<>();
+        mSpinner = (Spinner) findViewById(R.id.spinner);
+        mRollButton = (Button) findViewById(R.id.btnRoll);
+        mHistButton = (Button) findViewById(R.id.btnHistory);
+        txtResult = (TextView) findViewById(R.id.txtResult);
+    }
 
     public void rollDie(){
 
