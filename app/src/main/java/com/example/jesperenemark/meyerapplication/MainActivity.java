@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
         setButtons ();
         mHistButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
 /** start Activity2 */
                 startActivity(intent);
+
+       
 
 
             }
@@ -146,8 +149,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     public void populateSpinner() {
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this,   android.R.layout.simple_spinner_item, numbersDrop);
+
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(spinnerArrayAdapter);
 
@@ -165,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
         mRollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
                 txtResult.setText("");
                 result = 0;
@@ -185,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         txtResult.setText(addToText+numbersOfDie.get(i)+"+");
                     }
+
 
                 }
                 for (i=0; i < numbersOfDie.size(); i++) {
