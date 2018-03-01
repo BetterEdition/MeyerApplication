@@ -16,14 +16,13 @@ public class DiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dice);
 
-
-
         Bundle bundle = getIntent().getExtras();
         ArrayList<String> array = (ArrayList<String>) bundle.getStringArrayList("array_list");
         diceHistView = (ListView) findViewById(R.id.diceHist);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, array);
-       diceHistView.setAdapter(adapter);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_list_item_1, array);
+        diceHistView.setAdapter(adapter);
 
 
     }
