@@ -26,6 +26,7 @@ public class DiceActivity extends AppCompatActivity {
         diceHistView = (ListView) findViewById(R.id.diceHist);
 
 
+
         adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_list_item_1, array);
         diceHistView.setAdapter(adapter);
